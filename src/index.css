@@ -1,0 +1,60 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Metcon Scaled Bold';
+  src: local('Metcon Scaled Bold'), local('Metcon-Scaled-Bold'), local('MetconScaledBold'), local('Metcon Bold');
+  font-weight: 700 900;
+  font-style: normal;
+}
+
+@theme {
+  --font-display: "Metcon Scaled Bold", "Metcon Scaled", "Metcon", "Outfit", "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Metcon Scaled Bold", "Metcon", "Plus Jakarta Sans", "Outfit", ui-sans-serif, system-ui, sans-serif;
+  
+  --color-brand-black: #000000;
+  --color-brand-dark: #121212;
+  --color-brand-zinc: #18181b;
+  --color-brand-muted: #52525b;
+  --color-brand-subtle: #71717a;
+  --color-brand-border: #e4e4e7;
+  --color-brand-card: #ffffff;
+  --color-brand-surface: #f4f4f5;
+  --color-brand-canvas: #fafafa;
+}
+
+@layer base {
+  h1, h2, h3, h4, h5, h6, .font-serif, .font-serif-display, .font-display {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
+  }
+  
+  body {
+    font-family: var(--font-sans);
+    background-color: #fafafa;
+    color: #09090b;
+  }
+}
+
+@keyframes ticker {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee {
+  display: inline-flex;
+  white-space: nowrap;
+  animation: ticker 25s linear infinite;
+  will-change: transform;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
+}
+
+
+

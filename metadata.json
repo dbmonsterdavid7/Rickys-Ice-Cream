@@ -1,0 +1,6 @@
+{
+  "name": "Ricky's Ice Cream",
+  "description": "Family-owned handcrafted ice cream, soft serve, Flurrios, specialty sundaes, shakes, floats, and slushies in South Lyon, Michigan. Est. 2026.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

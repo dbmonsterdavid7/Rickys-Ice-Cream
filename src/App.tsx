@@ -14,6 +14,7 @@ import NotFoundPage from './pages/NotFoundPage';
 
 import { Flavor } from './types';
 import { FLAVORS } from './data/iceCreamData';
+import { NavigationModalProvider } from './context/NavigationModalContext';
 
 export default function App() {
   const [isFlightModalOpen, setIsFlightModalOpen] = useState(false);
@@ -40,49 +41,51 @@ export default function App() {
 
   return (
     <BrowserRouter>
-      <ScrollToTop />
-      <div className="min-h-screen flex flex-col bg-[#FAFAFA] text-zinc-900 font-sans selection:bg-black selection:text-white">
-        {/* Navigation Bar with Link / NavLink */}
-        <Navbar onOpenFlightBuilder={() => setIsFlightModalOpen(true)} />
+      <NavigationModalProvider>
+        <ScrollToTop />
+        <div className="min-h-screen flex flex-col bg-[#FAFAFA] text-zinc-900 font-sans selection:bg-black selection:text-white">
+          {/* Navigation Bar with Link / NavLink */}
+          <Navbar onOpenFlightBuilder={() => setIsFlightModalOpen(true)} />
 
-        {/* Dynamic Route Pages */}
-        <main className="grow">
-          <Routes>
-            <Route
-              path="/"
-              element={
-                <HomePage
-                  onOpenFlightBuilder={() => setIsFlightModalOpen(true)}
-                  flightFlavors={flightFlavors}
-                  onAddToFlight={handleAddToFlight}
-                  onRemoveFromFlight={handleRemoveFromFlight}
-                  onClearFlight={handleClearFlight}
-                />
-              }
-            />
-            <Route path="/menu" element={<MenuPage />} />
-            <Route path="/flavors" element={<MenuPage />} />
-            <Route path="/about" element={<AboutPage />} />
-            <Route path="/services" element={<ServicesPage />} />
-            <Route path="/contact" element={<ContactPage />} />
-            {/* 404 Catch-All Page */}
-            <Route path="*" element={<NotFoundPage />} />
-          </Routes>
-        </main>
+          {/* Dynamic Route Pages */}
+          <main className="grow">
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <HomePage
+                    onOpenFlightBuilder={() => setIsFlightModalOpen(true)}
+                    flightFlavors={flightFlavors}
+                    onAddToFlight={handleAddToFlight}
+                    onRemoveFromFlight={handleRemoveFromFlight}
+                    onClearFlight={handleClearFlight}
+                  />
+                }
+              />
+              <Route path="/menu" element={<MenuPage />} />
+              <Route path="/flavors" element={<MenuPage />} />
+              <Route path="/about" element={<AboutPage />} />
+              <Route path="/services" element={<ServicesPage />} />
+              <Route path="/contact" element={<ContactPage />} />
+              {/* 404 Catch-All Page */}
+              <Route path="*" element={<NotFoundPage />} />
+            </Routes>
+          </main>
 
-        {/* Global Shared Footer */}
-        <Footer />
+          {/* Global Shared Footer */}
+          <Footer />
 
-        {/* Global 3-Scoop Flight Customizer Modal */}
-        <ScoopFlightBuilder
-          isOpen={isFlightModalOpen}
-          onClose={() => setIsFlightModalOpen(false)}
-          selectedFlavors={flightFlavors}
-          onRemoveFlavor={handleRemoveFromFlight}
-          onAddFlavor={handleAddToFlight}
-          onClearFlight={handleClearFlight}
-        />
-      </div>
+          {/* Global 3-Scoop Flight Customizer Modal */}
+          <ScoopFlightBuilder
+            isOpen={isFlightModalOpen}
+            onClose={() => setIsFlightModalOpen(false)}
+            selectedFlavors={flightFlavors}
+            onRemoveFlavor={handleRemoveFromFlight}
+            onAddFlavor={handleAddToFlight}
+            onClearFlight={handleClearFlight}
+          />
+        </div>
+      </NavigationModalProvider>
     </BrowserRouter>
   );
 }

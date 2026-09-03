@@ -3,8 +3,10 @@ import { Link } from 'react-router-dom';
 import { MapPin, Phone, Clock, Heart, ExternalLink, Check, IceCream, Navigation } from 'lucide-react';
 import { SHOP_INFO } from '../data/iceCreamData';
 import BrandLogo from './BrandLogo';
+import { useNavigationModal } from '../context/NavigationModalContext';
 
 export default function Footer() {
+  const { openNavigationModal } = useNavigationModal();
   const [emailSubscribed, setEmailSubscribed] = useState(false);
   const [emailInput, setEmailInput] = useState('');
 
@@ -96,31 +98,29 @@ export default function Footer() {
               <div className="pt-2 border-t border-zinc-800 text-xs text-zinc-400 space-y-1">
                 <div className="flex items-start gap-2">
                   <MapPin className="w-3.5 h-3.5 text-white shrink-0 mt-0.5" />
-                  <a
-                    href="https://www.google.com/maps/dir/?api=1&destination=22912+Pontiac+Trail,+South+Lyon,+MI+48178"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="hover:text-white transition-colors"
-                    title="Get directions in navigation app"
+                  <button
+                    type="button"
+                    onClick={openNavigationModal}
+                    className="text-left hover:text-white transition-colors cursor-pointer"
+                    title="Choose navigation app"
                   >
                     {SHOP_INFO.address}, {SHOP_INFO.city}, {SHOP_INFO.state} {SHOP_INFO.zip}
-                  </a>
+                  </button>
                 </div>
                 <div className="flex items-center gap-2">
                   <Phone className="w-3.5 h-3.5 text-white shrink-0" />
                   <span>{SHOP_INFO.phone}</span>
                 </div>
                 <div className="pt-2">
-                  <a
-                    href="https://www.google.com/maps/dir/?api=1&destination=22912+Pontiac+Trail,+South+Lyon,+MI+48178"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-white text-[11px] font-bold transition-colors"
+                  <button
+                    type="button"
+                    onClick={openNavigationModal}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-white text-[11px] font-bold transition-colors cursor-pointer"
                     title="Open in Maps"
                   >
                     <Navigation className="w-3 h-3 text-white" />
                     <span>Open in Maps</span>
-                  </a>
+                  </button>
                 </div>
               </div>
             </div>

@@ -1,8 +1,10 @@
 import React from 'react';
 import { MENU_CATEGORIES } from '../data/menuData';
 import { Star, Navigation } from 'lucide-react';
+import { useNavigationModal } from '../context/NavigationModalContext';
 
 export default function MenuBoardView() {
+  const { openNavigationModal } = useNavigationModal();
   const conesCups = MENU_CATEGORIES.find((c) => c.id === 'cones-cups')!;
   const flurrios = MENU_CATEGORIES.find((c) => c.id === 'flurrios')!;
   const specialties = MENU_CATEGORIES.find((c) => c.id === 'specialties')!;
@@ -28,18 +30,22 @@ export default function MenuBoardView() {
           </h2>
         </div>
         <div className="flex items-center gap-3 text-xs">
-          <span className="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-700 text-zinc-300 font-bold">
+          <button
+            type="button"
+            onClick={openNavigationModal}
+            className="px-3 py-1 rounded-full bg-zinc-900 border border-zinc-700 text-zinc-300 font-bold hover:text-white transition-colors cursor-pointer"
+            title="Directions to 22912 Pontiac Trail"
+          >
             22912 Pontiac Trail
-          </span>
-          <a
-            href="https://www.google.com/maps/dir/?api=1&destination=22912+Pontiac+Trail,+South+Lyon,+MI+48178"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-3 py-1 rounded-full bg-white text-black font-black uppercase tracking-wider hover:bg-zinc-200 transition-colors flex items-center gap-1"
+          </button>
+          <button
+            type="button"
+            onClick={openNavigationModal}
+            className="px-3 py-1 rounded-full bg-white text-black font-black uppercase tracking-wider hover:bg-zinc-200 transition-colors flex items-center gap-1 cursor-pointer"
           >
             <Navigation className="w-3 h-3" />
             <span>Visit Us</span>
-          </a>
+          </button>
         </div>
       </div>
 

@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import confetti from 'canvas-confetti';
-import { MapPin, Phone, Mail, Clock, Send, CheckCircle, ExternalLink, Star, IceCream } from 'lucide-react';
+import { MapPin, Phone, Mail, Clock, Send, CheckCircle, ExternalLink, Star, IceCream, Navigation } from 'lucide-react';
 import { SHOP_INFO, FLAVORS } from '../data/iceCreamData';
+import { useNavigationModal } from '../context/NavigationModalContext';
 
 export default function ContactPage() {
+  const { openNavigationModal } = useNavigationModal();
   const location = useLocation();
   const prefilledState = location.state as {
     packageId?: string;
@@ -337,13 +339,18 @@ export default function ContactPage() {
               </div>
 
               <div className="space-y-3 text-xs text-zinc-300 font-medium">
-                <div className="flex items-start gap-3">
-                  <MapPin className="w-4 h-4 text-white shrink-0 mt-0.5" />
+                <button
+                  type="button"
+                  onClick={openNavigationModal}
+                  className="flex items-start gap-3 text-left hover:text-white transition-colors cursor-pointer group"
+                  title="Choose navigation app"
+                >
+                  <MapPin className="w-4 h-4 text-white shrink-0 mt-0.5 group-hover:scale-110 transition-transform" />
                   <div>
-                    <strong className="block text-white">Scoop Shop Address</strong>
+                    <strong className="block text-white group-hover:underline">Scoop Shop Address (Tap for Maps)</strong>
                     <span>{SHOP_INFO.address}, {SHOP_INFO.city}, {SHOP_INFO.state} {SHOP_INFO.zip}</span>
                   </div>
-                </div>
+                </button>
 
                 <div className="flex items-center gap-3">
                   <Phone className="w-4 h-4 text-white shrink-0" />
@@ -366,17 +373,26 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Direct Link to Google Business Profile */}
-              <div className="pt-2">
+              {/* Navigation and Business Profile Actions */}
+              <div className="pt-2 space-y-2.5">
+                <button
+                  type="button"
+                  onClick={openNavigationModal}
+                  className="w-full py-3 px-4 rounded-full bg-white hover:bg-zinc-200 text-black text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-colors cursor-pointer"
+                >
+                  <Navigation className="w-3.5 h-3.5 text-black shrink-0" />
+                  <span>Get Directions (Apple Maps / Google Maps)</span>
+                </button>
+
                 <a
                   href={SHOP_INFO.googleProfileUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="w-full py-3 px-4 rounded-full bg-white hover:bg-zinc-200 text-black text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-colors"
+                  className="w-full py-3 px-4 rounded-full bg-zinc-900 hover:bg-zinc-800 border border-zinc-700 text-white text-xs font-black uppercase tracking-wider flex items-center justify-center gap-2 shadow-sm transition-colors"
                 >
-                  <IceCream className="w-3.5 h-3.5 text-black shrink-0" />
-                  <span>Open Google Business Profile</span>
-                  <ExternalLink className="w-3.5 h-3.5 text-zinc-600" />
+                  <IceCream className="w-3.5 h-3.5 text-white shrink-0" />
+                  <span>Google Business Profile & Reviews</span>
+                  <ExternalLink className="w-3.5 h-3.5 text-zinc-400" />
                 </a>
               </div>
             </div>

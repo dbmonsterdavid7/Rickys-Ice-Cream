@@ -3,13 +3,13 @@ import { MapPin, Navigation, Clock, Search, LayoutGrid, Layers, Check, IceCream 
 import { MENU_CATEGORIES, MenuCategory } from '../data/menuData';
 import { SHOP_INFO } from '../data/iceCreamData';
 import MenuBoardView from '../components/MenuBoardView';
+import { useNavigationModal } from '../context/NavigationModalContext';
 
 export default function MenuPage() {
+  const { openNavigationModal } = useNavigationModal();
   const [viewMode, setViewMode] = useState<'board' | 'interactive'>('board');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [searchQuery, setSearchQuery] = useState('');
-
-  const directionsUrl = "https://www.google.com/maps/dir/?api=1&destination=22912+Pontiac+Trail,+South+Lyon,+MI+48178";
 
   // Filter categories based on search or selected tab
   const filteredCategories = MENU_CATEGORIES.filter((category) => {
@@ -62,15 +62,14 @@ export default function MenuPage() {
 
         {/* Action Controls */}
         <div className="flex flex-col sm:flex-row md:flex-col gap-3 shrink-0">
-          <a
-            href={directionsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="px-6 py-3.5 rounded-full bg-black hover:bg-zinc-800 text-white font-extrabold text-xs uppercase tracking-widest shadow-md transition-all flex items-center justify-center gap-2 text-center"
+          <button
+            type="button"
+            onClick={openNavigationModal}
+            className="px-6 py-3.5 rounded-full bg-black hover:bg-zinc-800 text-white font-extrabold text-xs uppercase tracking-widest shadow-md transition-all flex items-center justify-center gap-2 text-center cursor-pointer"
           >
             <Navigation className="w-4 h-4" />
             <span>Get Directions to Shop</span>
-          </a>
+          </button>
 
           {/* View Mode Toggle Buttons */}
           <div className="p-1 bg-zinc-100 rounded-full border border-zinc-200 flex items-center justify-center">
@@ -280,15 +279,14 @@ export default function MenuPage() {
           </p>
         </div>
 
-        <a
-          href={directionsUrl}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="px-8 py-4 rounded-full bg-white hover:bg-zinc-200 text-black font-extrabold text-xs uppercase tracking-widest shadow-md transition-all shrink-0 flex items-center gap-2"
+        <button
+          type="button"
+          onClick={openNavigationModal}
+          className="px-8 py-4 rounded-full bg-white hover:bg-zinc-200 text-black font-extrabold text-xs uppercase tracking-widest shadow-md transition-all shrink-0 flex items-center gap-2 cursor-pointer"
         >
           <Navigation className="w-4 h-4" />
           <span>Get Directions</span>
-        </a>
+        </button>
       </div>
     </div>
   );

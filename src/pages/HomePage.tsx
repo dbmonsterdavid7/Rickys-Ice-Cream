@@ -4,9 +4,10 @@ import { ArrowRight, Star, MapPin, Clock, IceCream, Navigation, Utensils, Chevro
 import { TESTIMONIALS, SHOP_INFO } from '../data/iceCreamData';
 import { MENU_CATEGORIES } from '../data/menuData';
 import MenuBoardView from '../components/MenuBoardView';
+import { useNavigationModal } from '../context/NavigationModalContext';
 
 export default function HomePage() {
-  const directionsUrl = "https://www.google.com/maps/dir/?api=1&destination=22912+Pontiac+Trail,+South+Lyon,+MI+48178";
+  const { openNavigationModal } = useNavigationModal();
   const [activeReviewIndex, setActiveReviewIndex] = useState(0);
   const reviewScrollRef = useRef<HTMLDivElement>(null);
 
@@ -65,15 +66,14 @@ export default function HomePage() {
                   <span>Explore Menu</span>
                 </a>
 
-                <a
-                  href={directionsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full sm:w-auto justify-center px-8 py-4 rounded-full bg-white hover:bg-zinc-50 text-black border border-zinc-300 font-extrabold text-xs uppercase tracking-widest transition-all shadow-xs flex items-center gap-2 text-center"
+                <button
+                  type="button"
+                  onClick={openNavigationModal}
+                  className="w-full sm:w-auto justify-center px-8 py-4 rounded-full bg-white hover:bg-zinc-50 text-black border border-zinc-300 font-extrabold text-xs uppercase tracking-widest transition-all shadow-xs flex items-center gap-2 text-center cursor-pointer"
                 >
                   <Navigation className="w-4 h-4 text-black" />
                   <span>Visit Us • Get Directions</span>
-                </a>
+                </button>
               </div>
             </div>
 
@@ -102,11 +102,11 @@ export default function HomePage() {
                 </div>
 
                 {/* Floating Location Badge */}
-                <a
-                  href={directionsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="absolute -bottom-6 -left-6 bg-white p-4 rounded-3xl shadow-xl border border-zinc-200 max-w-[240px] hidden sm:flex items-center gap-3 hover:border-black transition-all cursor-pointer"
+                <button
+                  type="button"
+                  onClick={openNavigationModal}
+                  className="absolute -bottom-6 -left-6 bg-white p-4 rounded-3xl shadow-xl border border-zinc-200 max-w-[240px] hidden sm:flex items-center gap-3 hover:border-black transition-all cursor-pointer text-left"
+                  title="Choose navigation app"
                 >
                   <div className="w-10 h-10 rounded-2xl bg-black flex items-center justify-center text-white shrink-0">
                     <MapPin className="w-5 h-5" />
@@ -119,14 +119,14 @@ export default function HomePage() {
                       South Lyon, MI →
                     </span>
                   </div>
-                </a>
+                </button>
 
                 {/* Floating Hours Badge */}
-                <div className="absolute -top-4 -right-4 bg-black text-white p-3.5 rounded-3xl shadow-xl border border-zinc-800 flex items-center gap-2.5">
-                  <div className="w-2.5 h-2.5 rounded-full bg-white animate-pulse" />
+                <div className="absolute top-2.5 right-2.5 sm:-top-4 sm:-right-4 bg-black text-white px-3 py-2 sm:p-3.5 rounded-2xl sm:rounded-3xl shadow-xl border border-zinc-800 flex items-center gap-2 sm:gap-2.5 z-10">
+                  <div className="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full bg-white animate-pulse shrink-0" />
                   <div className="text-xs">
-                    <span className="font-extrabold block text-white">Open Today</span>
-                    <span className="text-[11px] text-zinc-300">12 PM – 10 PM</span>
+                    <span className="font-extrabold block text-white text-[11px] sm:text-xs leading-tight">Open Today</span>
+                    <span className="text-[10px] sm:text-[11px] text-zinc-300 font-medium leading-tight">12 PM – 10 PM</span>
                   </div>
                 </div>
               </div>
@@ -203,15 +203,14 @@ export default function HomePage() {
                 Every specialty creation is hand-crafted with generous toppings, warm fudge, scratch-baked brownies, and fresh whipped cream. Or build your own Flurrio with your favorite candies and syrups.
               </p>
               <div className="pt-2 flex flex-wrap items-center gap-4">
-                <a
-                  href={directionsUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <button
+                  type="button"
+                  onClick={openNavigationModal}
                   className="px-7 py-3.5 rounded-full bg-white hover:bg-zinc-200 text-black font-extrabold text-xs uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer shadow-md"
                 >
                   <Navigation className="w-4 h-4" />
                   <span>Visit Shop at 22912 Pontiac Trail</span>
-                </a>
+                </button>
                 <Link
                   to="/menu"
                   className="text-xs text-zinc-300 hover:text-white font-extrabold underline underline-offset-4"
@@ -409,15 +408,14 @@ export default function HomePage() {
             </div>
 
             <div className="pt-2 flex flex-wrap gap-4">
-              <a
-                href={directionsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="px-6 py-3.5 rounded-full bg-white hover:bg-zinc-200 text-black font-extrabold text-xs uppercase tracking-wider transition-all flex items-center gap-2"
+              <button
+                type="button"
+                onClick={openNavigationModal}
+                className="px-6 py-3.5 rounded-full bg-white hover:bg-zinc-200 text-black font-extrabold text-xs uppercase tracking-wider transition-all flex items-center gap-2 cursor-pointer"
               >
                 <Navigation className="w-4 h-4" />
                 <span>Open in Maps</span>
-              </a>
+              </button>
               <Link
                 to="/contact"
                 className="px-6 py-3.5 rounded-full bg-zinc-900 hover:bg-zinc-800 text-white border border-zinc-700 font-extrabold text-xs uppercase tracking-wider transition-all"

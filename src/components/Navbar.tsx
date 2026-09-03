@@ -3,9 +3,11 @@ import { Link, NavLink } from 'react-router-dom';
 import { Menu, X, Phone, MapPin, Navigation, IceCream } from 'lucide-react';
 import { SHOP_INFO } from '../data/iceCreamData';
 import BrandLogo from './BrandLogo';
+import { useNavigationModal } from '../context/NavigationModalContext';
 
 export default function Navbar() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const { openNavigationModal } = useNavigationModal();
 
   const navLinks = [
     { name: 'Menu', path: '/menu' },
@@ -13,8 +15,6 @@ export default function Navbar() {
     { name: 'Catering & Events', path: '/services' },
     { name: 'Visit & Contact', path: '/contact' },
   ];
-
-  const directionsUrl = "https://www.google.com/maps/dir/?api=1&destination=22912+Pontiac+Trail,+South+Lyon,+MI+48178";
 
   return (
     <>
@@ -26,15 +26,14 @@ export default function Navbar() {
             Est. 2026 • Family Owned & Operated
           </span>
           <span className="text-zinc-500">•</span>
-          <a
-            href={directionsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-zinc-200 hover:text-white underline underline-offset-2 shrink-0"
+          <button
+            type="button"
+            onClick={openNavigationModal}
+            className="inline-flex items-center gap-1 text-zinc-200 hover:text-white underline underline-offset-2 shrink-0 cursor-pointer"
           >
             <MapPin className="w-3 h-3 text-white shrink-0" />
             22912 Pontiac Trail, South Lyon, MI
-          </a>
+          </button>
           <span className="text-zinc-500">•</span>
           <span className="text-zinc-300">
             Cones & Cups • Flurrios • Specialties • Sundaes • Milkshakes • Slushies
@@ -51,15 +50,14 @@ export default function Navbar() {
             Est. 2026 • Family Owned & Operated
           </span>
           <span className="text-zinc-500">•</span>
-          <a
-            href={directionsUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="inline-flex items-center gap-1 text-zinc-200 hover:text-white underline underline-offset-2 shrink-0"
+          <button
+            type="button"
+            onClick={openNavigationModal}
+            className="inline-flex items-center gap-1 text-zinc-200 hover:text-white underline underline-offset-2 shrink-0 cursor-pointer"
           >
             <MapPin className="w-3 h-3 text-white shrink-0" />
             22912 Pontiac Trail, South Lyon, MI
-          </a>
+          </button>
           <span className="text-zinc-500">•</span>
           <span className="text-zinc-300">
             Cones & Cups • Flurrios • Specialties • Sundaes • Milkshakes • Slushies
@@ -88,16 +86,15 @@ export default function Navbar() {
           </div>
 
           <div className="flex items-center justify-end gap-5 text-[11px] text-zinc-300 font-medium shrink-0 lg:flex-1">
-            <a 
-              href={directionsUrl}
-              target="_blank" 
-              rel="noopener noreferrer"
-              className="flex items-center gap-1.5 hover:text-white transition-colors"
-              title="Get directions in navigation app"
+            <button 
+              type="button"
+              onClick={openNavigationModal}
+              className="flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer"
+              title="Choose navigation app for directions"
             >
               <Navigation className="w-3 h-3 text-white" />
               <span>{SHOP_INFO.city}, {SHOP_INFO.state}</span>
-            </a>
+            </button>
             <a 
               href={`tel:${SHOP_INFO.phone}`}
               className="flex items-center gap-1.5 hover:text-white transition-colors"
@@ -151,17 +148,16 @@ export default function Navbar() {
 
             {/* Desktop Actions: Visit Us (Opens Navigation App) + Order Catering */}
             <div className="hidden lg:flex items-center gap-3">
-              <a
+              <button
                 id="nav-visit-us-btn"
-                href={directionsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
+                type="button"
+                onClick={openNavigationModal}
                 className="px-4 py-2.5 rounded-full text-xs font-bold uppercase tracking-wider bg-zinc-100 hover:bg-zinc-200 text-black border border-zinc-300 transition-all flex items-center gap-1.5 cursor-pointer active:scale-95 shadow-xs"
-                title="Open 22912 Pontiac Trail, South Lyon, MI 48178 in your navigation app"
+                title="Choose maps app for directions to 22912 Pontiac Trail"
               >
                 <Navigation className="w-3.5 h-3.5 text-black" />
                 <span>Visit Us</span>
-              </a>
+              </button>
 
               <Link
                 to="/services"
@@ -207,17 +203,18 @@ export default function Navbar() {
             ))}
 
             <div className="pt-3 border-t border-zinc-200 space-y-2">
-              <a
+              <button
                 id="mobile-visit-us-btn"
-                href={directionsUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={() => setMobileMenuOpen(false)}
+                type="button"
+                onClick={() => {
+                  setMobileMenuOpen(false);
+                  openNavigationModal();
+                }}
                 className="w-full py-3 px-4 rounded-full text-xs font-bold uppercase tracking-wider bg-zinc-100 hover:bg-zinc-200 text-black border border-zinc-300 flex items-center justify-center gap-2 cursor-pointer shadow-xs"
               >
                 <Navigation className="w-4 h-4 text-black" />
                 <span>Visit Us</span>
-              </a>
+              </button>
 
               <Link
                 to="/services"
